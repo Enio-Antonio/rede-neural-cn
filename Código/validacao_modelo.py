@@ -18,17 +18,17 @@ y = dados_1[:,2] # dados para fazer a função de treinamento
 #              406,407,408,410,411,414,415,416,419,420,421,422,424,426,427,428,432,434,436,437,438,440,444,445,448,450,451,452,454,458,459,461.9,462,463,
 #              465,469,472,473,474,477,478,483,484,485,488,489,490,491,492,492.5,493,495,496,498,499,500])
 
-c = np.linspace(x[0], x[-1], 499)
+c = np.linspace(x[0], x[-1], 4)
 
 phi = np.zeros(shape=(len(x), len(c)))
 
-sigma = 1
+sigma = 20
 
 for i in range(len(x)):
     for j in range(len(c)):
         phi[i, j] = np.exp(-(1/(2*(sigma**2)))*(x[i] - c[j])**2)
 
-w = la.pinv(phi)@y # erro de ~0.29
+w = la.pinv(phi)@y
 
 # Validação do modelo usando os dados 2 -----------------------------------------------------
 
@@ -36,7 +36,6 @@ dados_2 = np.loadtxt('../dados_02.dat')
 
 x_test = dados_2[:,0]
 y_test = dados_2[:,2]
-
 # os centros e o sigma serão os mesmos do treinamento
 
 phi_test = np.zeros(shape=(len(x_test), len(c)))
@@ -46,10 +45,9 @@ for i in range(len(x_test)):
         phi_test[i, j] = np.exp(-(1/(2*(sigma**2)))*(x_test[i] - c[j])**2)
 
 # w será o mesmo do treinamento
-w_test = la.pinv(phi_test)@y_test
-y_est_test = phi_test @ w_test
+y_est_test = w[0]*phi_test[:,0] + w[1]*phi_test[:,1] + w[2]*phi_test[:,2]
 
-plt.figure(figsize=(14, 6))
+plt.figure(figsize=(14, 4))
 plt.plot(x_test, y_test, label="Dados 2")
 plt.plot(x_test, y_est_test, '--r', label="y(x) estimado")
 plt.legend()

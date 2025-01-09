@@ -20,4 +20,5 @@ plt.show()
 
 plt.figure(figsize=(12,6))
 plt.plot(x2, y2)
+plt.plot(x2, u2, 'r')
 plt.show()
