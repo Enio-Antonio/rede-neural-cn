@@ -28,7 +28,7 @@ for i in range(len(x)):
 
 w = la.pinv(phi)@y
 
-y_est = w[0]*phi[:,0] + w[1]*phi[:,1] + w[2]*phi[:,2]
+y_est = w[0]*phi[:,0] + w[1]*phi[:,1] + w[2]*phi[:,2] + w[3]*phi[:,3]
 
 plt.figure(figsize=(14,4))
 plt.plot(x, y, 'o-')
